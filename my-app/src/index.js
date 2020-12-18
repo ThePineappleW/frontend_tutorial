@@ -14,14 +14,13 @@ var submitInfo = function(){
             capital: 'Paris',
             continent: 'Europe',
             hdi: '0.950'
-        }),
-        mode: 'no-cors'
+        })
     };
 
     fetch( "http://localhost:3000/api/countries/", response)
         .then(response => response.json())
         .then(responseJson => {
-            alert(responseJson.message);
+            console.log(responseJson.message);
         })
         .catch((error) => {
             console.error(error);
@@ -32,7 +31,7 @@ var getAllCountries = function(){
     fetch( "http://localhost:3000/api/countries/" )
     .then( (response) => response.json() )
     .then( (responseJson) => {
-        alert(responseJson)
+        console.log(responseJson)
     })
     .catch((error) => {
         console.error(error);
