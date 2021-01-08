@@ -1,12 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
+import Home from './components/home.js';
+import Login from './components/login.js';
+import Database from './components/database.js';
+import Inputs from './components/inputs.js';
 
-//I have not yet implemented the input fields,  they are currently just placeholders.
-
+/**
 var submitInfo = function(){
-    var response = {
+    var request = {
         method: 'POST',
         headers: new Headers({
+            'Authorization': 'Basic '+btoa('username:password'),
             'Content-Type': 'application/x-www-form-urlencoded'
           }),
         body: JSON.stringify({
@@ -17,7 +22,7 @@ var submitInfo = function(){
         })
     };
 
-    fetch( "http://localhost:3000/api/countries/", response)
+    fetch( "http://localhost:3000/api/countries/", request)
         .then(response => response.json())
         .then(responseJson => {
             console.log(responseJson.message);
@@ -28,7 +33,14 @@ var submitInfo = function(){
 }
 
 var getAllCountries = function(){
-    fetch( "http://localhost:3000/api/countries/" )
+    var request = {
+        method: 'GET',
+        headers: new Headers({
+            'Authorization': 'Basic '+btoa('username:password')
+          }),
+    };
+    
+    fetch( "http://localhost:3000/api/countries/", request )
     .then( (response) => response.json() )
     .then( (responseJson) => {
         console.log(responseJson)
@@ -46,28 +58,28 @@ const countryInput = {
     continent: <input type="text" placeholder="Continent" />,
     hdi: <input type="number" placeholder="HDI" />
 }
+**/
 
+  
 
-const body = <div>
-                <h1>CountryDB</h1>
-                <br />
-                {username}
-                <br />
-                {password}
-                <br />
-                <h2> Input country data</h2>
-                {countryInput.name}
-                {countryInput.capital}
-                <br />
-                {countryInput.continent}
-                {countryInput.hdi}
-                <br />
-                <br />
-                <button onClick={submitInfo}>Submit</button>
-                <br />
-                <br />
-                <button onClick={getAllCountries}>Get all loaded countries</button>
-             </div>;
+ 
+
+const routing = (
+    <Router>
+        <div>
+            <h1>CountryDB</h1>
+            <ul>
+                <li><Link to="/home">Home</Link></li>
+                <li><Link to="/login">Login</Link></li>
+                <li><Link to="/database">Database</Link></li>
+            </ul>
+            <Route path="/home" component={Home} />
+            <Route path="/login" component={Login} />
+            <Route path="/database" component={Database} />
+        </div>
+    </Router>
+)
+
 
 //render everything
-ReactDOM.render(body, document.getElementById('root'));
+ReactDOM.render(routing, document.getElementById('root'));
